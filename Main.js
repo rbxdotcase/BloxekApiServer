@@ -18,12 +18,13 @@ app.get("/", (req, res) => res.status(200).send({ Message: "Server is running" }
 app.post("/roblox/setrank", function (req, res, next) {
     let groupid = req.body.groupid
     let userid = req.body.userid
+    let rankid = req.body.rankid
+
+    console.log(`Requested to give ${userid} the rank ${rankid} in group ${groupid}`)
 
     utility.convertStringRole(req).then(rankid => {
         console.log(rankid)
         checkRank(req)
-
-        console.log(`Requested to give ${userid} the rank ${rankid} in group ${groupid}`)
 
         utility.SetRank(res, groupid, userid, rankid)
     }).catch(reason => {
@@ -47,5 +48,5 @@ login()
     .then(currentUser => {
     console.log(currentUser)
 
-    app.listen()
-})
+    app.listen();
+});
